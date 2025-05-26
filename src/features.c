@@ -28,3 +28,13 @@ void dimension(char* filename) {
         free_image_data(data);
     }
 }
+
+void first_pixel(char *source_path){
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+    unsigned char r = data[0];
+    unsigned char g = data[1];
+    unsigned char b = data[2];
+    printf("first_pixel: %d, %d, %d\n", r, g, b);
+}
