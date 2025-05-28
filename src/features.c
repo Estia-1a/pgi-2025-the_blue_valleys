@@ -38,3 +38,13 @@ void first_pixel(char *source_path){
     unsigned char b = data[2];
     printf("first_pixel: %d, %d, %d\n", r, g, b);
 }
+
+void tenth_pixel(char *source_path){
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+    unsigned char r = data[27];
+    unsigned char g = data[28];
+    unsigned char b = data[29];
+    printf("tenth_pixel: %d, %d, %d\n", r, g, b);
+}
