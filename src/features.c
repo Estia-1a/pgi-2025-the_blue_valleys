@@ -48,3 +48,13 @@ void tenth_pixel(char *source_path){
     unsigned char b = data[29];
     printf("tenth_pixel: %d, %d, %d\n", r, g, b);
 }
+
+void second_line(char *source_path){
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+    unsigned char r = data[3*width];
+    unsigned char g = data[3*width+1];
+    unsigned char b = data[3*width+2];
+    printf("second_line: %d, %d, %d\n", r, g, b);
+}
