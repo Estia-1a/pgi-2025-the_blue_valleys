@@ -21,7 +21,6 @@ int main(int argc, char **argv) {
   parse_arguments( argc, argv, &configuration ) ;
   check_debug_mode(configuration);
   check_file();
-  printf("Bienvenue Tristan\n");
  
   if ( strncmp( configuration.command, "helloworld", 10 ) == 0 ) {
     helloWorld();
