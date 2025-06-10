@@ -14,4 +14,6 @@ void second_line(char *source_path);
 
 void max_pixel(char *source_path);
 
+void max_component(char *source_path, char component);
+
 #endif
