@@ -170,3 +170,46 @@ void max_component(char *source_path, char component) {
     }
     printf("max component %c (%d, %d): %d", component, x_max, y_max, comp_max);
 }
+
+void min_component(char *source_path, char component) {
+    if (component != 'R' && component != 'G' && component != 'B') {
+        printf("Le parametre de la fonction doit etre R, G ou B.");
+        return;
+    }
+    unsigned char *data;
+    int width, height, channel_count;
+    int i = 0;
+    unsigned char comp, comp_min=255;
+    int x_min, y_min;
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+    int nb_pixels = width * height;
+    for (i=0; i<nb_pixels; i++) {
+
+        if (component == 'R') {
+            comp = data[i*3+0];
+            if (comp<comp_min) {
+                comp_min=comp;
+                x_min = i % width;
+                y_min = i / width;
+            }
+        }
+
+        else if (component == 'G') {
+            comp = data[i*3+1];
+            if (comp<comp_min) {
+                comp_min=comp;
+                x_min = i % width;
+                y_min = i / width;
+            }
+        }
+        else {
+            comp = data[i*3+2];
+            if (comp<comp_min) {
+                comp_min=comp;
+                x_min = i % width;
+                y_min = i / width;
+            }
+        }  
+    }
+    printf("min component %c (%d, %d): %d", component, x_min, y_min, comp_min);
+}
