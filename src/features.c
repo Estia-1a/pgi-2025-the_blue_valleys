@@ -67,6 +67,12 @@ void print_pixel(char *filename, int x, int y){
     unsigned char r = data[pixel_index];
     unsigned char g = data[pixel_index+1];
     unsigned char b = data[pixel_index+2];
+    if(data==NULL){
+        printf("NULL");
+    }
+    if(x < 0 || x >= width || y < 0 || y >= height) {
+        printf("NULL");
+    }
     printf("print_pixel (%d, %d): %d, %d, %d\n", x, y, r, g, b);
 }
 
