@@ -138,6 +138,7 @@ void max_component(char *source_path, char component) {
     }
     printf("max component %c (%d, %d): %d", component, x_max, y_max, comp_max);
 }
+
 void min_pixel(char *source_path) {
     unsigned char *data;
     int width, height, channel_count;
