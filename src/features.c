@@ -69,3 +69,29 @@ void print_pixel(char *filename, int x, int y){
     unsigned char b = data[pixel_index+2];
     printf("print_pixel (%d, %d): %d, %d, %d\n", x, y, r, g, b);
 }
+
+void max_pixel(char *source_path) {
+    unsigned char *data;
+    int width, height, channel_count;
+    int i = 0;
+    int somme = 0, max = 0;
+    unsigned char r, g, b, r_max, g_max, b_max;
+    int x_max, y_max;
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+    int nb_pixels = width * height;
+    for (i=0; i<nb_pixels; i++) {
+        r = data[i*3+0];
+        g = data[i*3+1];
+        b = data[i*3+2];
+        somme = r + g + b;
+        if (somme > max) {
+            max=somme;
+            r_max = r;
+            g_max = g;
+            b_max = b;
+            x_max = i % width;
+            y_max = i / width;
+        }
+    }
+    printf("max pixel (%d,%d): %d, %d, %d", x_max, y_max, r_max, g_max, b_max);
+}
