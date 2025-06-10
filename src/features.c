@@ -254,3 +254,20 @@ void min_component(char *source_path, char component) {
     }
     printf("min component %c (%d, %d): %d", component, x_min, y_min, comp_min);
 }
+
+void color_gray(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int i, x, y;
+    int nb_pixels=width*height;
+    int moy;
+    for (i=0; i<nb_pixels ; i++) 
+    {
+        moy = (data[i*3+0] + data[i*3+1] + data[i*3+2]) / 3;
+        data[i*3+0]=moy;
+        data[i*3+1]=moy;
+        data[i*3+2]=moy;
+    }
+    write_image_data("image_out.bmp", data, width, height);
+}
