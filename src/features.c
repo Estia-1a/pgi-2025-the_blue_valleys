@@ -259,7 +259,7 @@ void color_gray(char *filename) {
     unsigned char *data;
     int width, height, channel_count;
     read_image_data(filename, &data, &width, &height, &channel_count);
-    int i, x, y;
+    int i;
     int nb_pixels=width*height;
     int moy;
     for (i=0; i<nb_pixels ; i++) 
