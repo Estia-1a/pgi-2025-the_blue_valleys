@@ -58,3 +58,14 @@ void second_line(char *source_path){
     unsigned char b = data[3*width+2];
     printf("second_line: %d, %d, %d\n", r, g, b);
 }
+
+void print_pixel(char *filename, int x, int y){
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int pixel_index = (y*width+x)*channel_count;
+    unsigned char r = data[pixel_index];
+    unsigned char g = data[pixel_index+1];
+    unsigned char b = data[pixel_index+2];
+    printf("print_pixel (%d, %d): %d, %d, %d\n", x, y, r, g, b);
+}
