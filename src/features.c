@@ -67,6 +67,12 @@ void print_pixel(char *filename, int x, int y){
     unsigned char r = data[pixel_index];
     unsigned char g = data[pixel_index+1];
     unsigned char b = data[pixel_index+2];
+    if(data==NULL){
+        return NULL;
+    }
+    if(x < 0 || x >= width || y < 0 || y >= height) {
+        return NULL;
+    }
     printf("print_pixel (%d, %d): %d, %d, %d\n", x, y, r, g, b);
 }
 
@@ -96,48 +102,6 @@ void max_pixel(char *source_path) {
     printf("max pixel (%d,%d): %d, %d, %d", x_max, y_max, r_max, g_max, b_max);
 }
 
-void max_component(char *source_path, char component) {
-    if (component != 'R' && component != 'G' && component != 'B') {
-        printf("Le parametre de la fonction doit etre R, G ou B.");
-        return;
-    }
-    unsigned char *data;
-    int width, height, channel_count;
-    int i = 0;
-    unsigned char comp, comp_max;
-    int x_max, y_max;
-    read_image_data(source_path, &data, &width, &height, &channel_count);
-    int nb_pixels = width * height;
-    for (i=0; i<nb_pixels; i++) {
-
-        if (component == 'R') {
-            comp = data[i*3+0];
-            if (comp>comp_max) {
-                comp_max=comp;
-                x_max = i % width;
-                y_max = i / width;
-            }
-        }
-
-        else if (component == 'G') {
-            comp = data[i*3+1];
-            if (comp>comp_max) {
-                comp_max=comp;
-                x_max = i % width;
-                y_max = i / width;
-            }
-        }
-        else {
-            comp = data[i*3+2];
-            if (comp>comp_max) {
-                comp_max=comp;
-                x_max = i % width;
-                y_max = i / width;
-            }
-        }  
-    }
-    printf("max component %c (%d, %d): %d", component, x_max, y_max, comp_max);
-}
 void min_pixel(char *source_path) {
     unsigned char *data;
     int width, height, channel_count;
