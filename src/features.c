@@ -59,6 +59,17 @@ void second_line(char *source_path){
     printf("second_line: %d, %d, %d\n", r, g, b);
 }
 
+void print_pixel(char *filename, int x, int y){
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int pixel_index = (y*width+x)*channel_count;
+    unsigned char r = data[pixel_index];
+    unsigned char g = data[pixel_index+1];
+    unsigned char b = data[pixel_index+2];
+    printf("print_pixel (%d, %d): %d, %d, %d\n", x, y, r, g, b);
+}
+
 void max_pixel(char *source_path) {
     unsigned char *data;
     int width, height, channel_count;
@@ -127,3 +138,29 @@ void max_component(char *source_path, char component) {
     }
     printf("max component %c (%d, %d): %d", component, x_max, y_max, comp_max);
 }
+void min_pixel(char *source_path) {
+    unsigned char *data;
+    int width, height, channel_count;
+    int i = 0;
+    int somme = 0, min = 255 * 3;
+    unsigned char r, g, b, r_min, g_min, b_min;
+    int x_min, y_min;
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+    int nb_pixels = width * height;
+    for (i=0; i<nb_pixels; i++) {
+        r = data[i*3+0];
+        g = data[i*3+1];
+        b = data[i*3+2];
+        somme = r + g + b;
+        if (somme < min) {
+            min=somme;
+            r_min = r;
+            g_min = g;
+            b_min = b;
+            x_min = i % width;
+            y_min = i / width;
+        }
+    }
+    printf("min_pixel (%d,%d): %d, %d, %d", x_min, y_min, r_min, g_min, b_min);
+}
+
