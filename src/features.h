@@ -26,4 +26,6 @@ void color_green(char *filename);
 
 void color_blue(char *filename);
 
+void min_component(char *source_path, char component);
+
 #endif
