@@ -170,3 +170,45 @@ void max_component(char *source_path, char component) {
     }
     printf("max component %c (%d, %d): %d", component, x_max, y_max, comp_max);
 }
+
+void color_red(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int i;
+    int nb_pixels=width*height;
+    for (i=0; i<nb_pixels ; i++) {
+        data[i*3+1]=0;
+        data[i*3+2]=0;
+    }
+    write_image_data("image_out.bmp", data, width, height);
+
+}
+
+void color_green(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int i;
+    int nb_pixels=width*height;
+    for (i=0; i<nb_pixels ; i++) {
+        data[i*3+0]=0;
+        data[i*3+2]=0;
+    }
+    write_image_data("image_out.bmp", data, width, height);
+
+}
+
+void color_blue(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int i;
+    int nb_pixels=width*height;
+    for (i=0; i<nb_pixels ; i++) {
+        data[i*3+0]=0;
+        data[i*3+1]=0;
+    }
+    write_image_data("image_out.bmp", data, width, height);
+
+}

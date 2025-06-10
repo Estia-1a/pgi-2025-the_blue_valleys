@@ -20,4 +20,10 @@ void max_component(char *source_path, char component);
 
 void min_pixel(char *source_path);
 
+void color_red(char *filename);
+
+void color_green(char *filename);
+
+void color_blue(char *filename);
+
 #endif
