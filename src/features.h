@@ -34,4 +34,6 @@ void min_component(char *source_path, char component);
 
 void color_invert(char *filename);
 
+void color_desaturate(char *filename);
+
 #endif

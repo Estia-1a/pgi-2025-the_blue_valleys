@@ -304,3 +304,51 @@ void color_invert(char *filename) {
     }
     write_image_data("image_out.bmp", data, width, height);
 }
+
+void color_desaturate(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int i, r, g, b;
+    int max, min;
+    int nb_pixels=width*height;
+    unsigned char new_val;
+    for (i=0; i<nb_pixels ; i++) 
+    {
+        r = data[i*3+0];
+        g = data[i*3+1];
+        b = data[i*3+2];
+        if (r > g && r > b){
+            max=r;
+            if (g > b){
+                min=b;
+            }
+            else {
+                min=g;
+            }
+        }
+        else if (g > r && g > b){
+            max=g;
+            if (r > b){
+                min=b;
+            }
+            else {
+                min=r;
+            }
+        }
+        else{
+            max=b;
+            if (r > g){
+                min=g;
+            }
+            else {
+                min=r;
+            }
+        }
+        new_val = (min + max) / 2 ;
+        data[i*3+0]=new_val;
+        data[i*3+1]=new_val;
+        data[i*3+2]=new_val;
+    }
+    write_image_data("image_out.bmp", data, width, height);
+}
