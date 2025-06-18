@@ -125,7 +125,7 @@ void min_pixel(char *source_path) {
             y_min = i / width;
         }
     }
-    printf("min_pixel (%d,%d): %d, %d, %d", x_min, y_min, r_min, g_min, b_min);
+    printf("min_pixel (%d, %d): %d, %d, %d", x_min, y_min, r_min, g_min, b_min);
 }
 
 void max_component(char *source_path, char component) {
@@ -220,8 +220,7 @@ void min_component(char *source_path, char component) {
     unsigned char *data;
     int width, height, channel_count;
     int i = 0;
-    unsigned char comp;
-    int comp_min=255*3+1;
+    int comp, comp_min=256;
     int x_min, y_min;
     read_image_data(source_path, &data, &width, &height, &channel_count);
     int nb_pixels = width * height;
@@ -253,7 +252,7 @@ void min_component(char *source_path, char component) {
             }
         }  
     }
-    printf("min component %c (%d, %d): %d", component, x_min, y_min, comp_min);
+    printf("min_component %c (%d, %d): %d", component, x_min, y_min, comp_min);
 }
 
 void color_gray(char *filename) {
@@ -349,6 +348,18 @@ void color_desaturate(char *filename) {
         data[i*3+0]=new_val;
         data[i*3+1]=new_val;
         data[i*3+2]=new_val;
+    }
+    write_image_data("image_out.bmp", data, width, height);
+}
+
+void mirror_horizontal(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int i;
+    int nb_pixels=width*height;
+    for (i=0; i<nb_pixels/2 ; i++)
+    {
     }
     write_image_data("image_out.bmp", data, width, height);
 }

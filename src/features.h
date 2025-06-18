@@ -36,4 +36,6 @@ void color_invert(char *filename);
 
 void color_desaturate(char *filename);
 
+void mirror_horizontal(char *filename);
+
 #endif
