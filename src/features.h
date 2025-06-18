@@ -28,6 +28,8 @@ void color_blue(char *filename);
 
 void color_gray(char *filename);
 
+void color_gray_luminance(char *filename);
+
 void min_component(char *source_path, char component);
 
 #endif

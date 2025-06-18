@@ -271,3 +271,20 @@ void color_gray(char *filename) {
     }
     write_image_data("image_out.bmp", data, width, height);
 }
+
+void color_gray_luminance(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int i;
+    int nb_pixels=width*height;
+    unsigned char moy;
+    for (i=0; i<nb_pixels ; i++) 
+    {
+        moy = data[i*3+0]*0.21 + data[i*3+1]*0.72 + data[i*3+2]*0.07;
+        data[i*3+0]=moy;
+        data[i*3+1]=moy;
+        data[i*3+2]=moy;
+    }
+    write_image_data("image_out.bmp", data, width, height);
+}
