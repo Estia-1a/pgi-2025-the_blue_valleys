@@ -222,7 +222,7 @@ void min_component(char *source_path, char component) {
     int width, height, channel_count;
     int i = 0;
     unsigned char comp;
-    int comp_min=255*3+1;
+    int comp_min=256;
     int x_min, y_min;
     read_image_data(source_path, &data, &width, &height, &channel_count);
     int nb_pixels = width * height;
@@ -254,7 +254,7 @@ void min_component(char *source_path, char component) {
             }
         }  
     }
-    printf("min component %c (%d, %d): %d", component, x_min, y_min, comp_min);
+    printf("min_component %c (%d, %d): %d", component, x_min, y_min, comp_min);
 }
 
 void color_gray(char *filename) {
@@ -430,3 +430,12 @@ void rotate_cw(char *filename) {
     write_image_data("image_out.bmp", rotated_data, new_width, new_height);
 }
 
+
+void mirror_total(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    mirror_vertical(*filename);
+    mirror_horizontal(*filename);
+    write_image_data("image_out.bmp", data, width, height);
+}
