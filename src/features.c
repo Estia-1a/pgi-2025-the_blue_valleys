@@ -220,7 +220,8 @@ void min_component(char *source_path, char component) {
     unsigned char *data;
     int width, height, channel_count;
     int i = 0;
-    unsigned char comp, comp_min=255;
+    unsigned char comp;
+    int comp_min=255*3+1;
     int x_min, y_min;
     read_image_data(source_path, &data, &width, &height, &channel_count);
     int nb_pixels = width * height;
