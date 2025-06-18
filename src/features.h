@@ -32,4 +32,6 @@ void color_gray_luminance(char *filename);
 
 void min_component(char *source_path, char component);
 
+void rotate_cw(char *filename);
+
 #endif
