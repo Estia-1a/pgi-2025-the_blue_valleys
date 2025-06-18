@@ -40,4 +40,6 @@ void color_desaturate(char *filename);
 
 void mirror_horizontal(char *filename);
 
+void rotate_acw(char *filename);
+
 #endif
