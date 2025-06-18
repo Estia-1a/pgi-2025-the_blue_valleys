@@ -107,8 +107,8 @@ void min_pixel(char *source_path) {
     int width, height, channel_count;
     int i = 0;
     int somme = 0, min = 255 * 3;
-    unsigned char r, g, b, r_min, g_min, b_min;
-    int x_min, y_min;
+    unsigned char r = 0, g = 0, b = 0, r_min = 0, g_min = 0 , b_min = 0;
+    int x_min = 0, y_min = 0;
     read_image_data(source_path, &data, &width, &height, &channel_count);
     int nb_pixels = width * height;
     for (i=0; i<nb_pixels; i++) {
