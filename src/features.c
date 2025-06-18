@@ -352,14 +352,34 @@ void color_desaturate(char *filename) {
     write_image_data("image_out.bmp", data, width, height);
 }
 
+
 void mirror_horizontal(char *filename) {
     unsigned char *data;
     int width, height, channel_count;
     read_image_data(filename, &data, &width, &height, &channel_count);
-    int i;
-    int nb_pixels=width*height;
-    for (i=0; i<nb_pixels/2 ; i++)
-    {
+
+    for (int y = 0; y < height; y++) {
+        for (int x=0; x < width/2; x++) {
+            int index_source = (y * width + x) * 3;
+            unsigned char source_r = data[index_source];
+            unsigned char source_g = data[index_source+1];
+            unsigned char source_b = data[index_source+2];
+
+            int x_destination = width - 1 - x;
+            int index_destination = (y * width + x_destination) * 3;
+            unsigned char destination_r = data[index_destination];
+            unsigned char destination_g = data[index_destination+1];
+            unsigned char destination_b = data[index_destination+2];
+
+            data[index_destination] = source_r;
+            data[index_destination+1] = source_g;
+            data[index_destination+2] = source_b;
+
+            data[index_source] = destination_r;
+            data[index_source+1] = destination_g;
+            data[index_source+2] = destination_b;
+
+        }
     }
     write_image_data("image_out.bmp", data, width, height);
 }
