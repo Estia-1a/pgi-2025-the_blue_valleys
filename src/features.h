@@ -42,4 +42,8 @@ void mirror_horizontal(char *filename);
 
 void rotate_acw(char *filename);
 
+void mirror_vertical(char *filename);
+
+
+
 #endif

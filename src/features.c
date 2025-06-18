@@ -429,7 +429,35 @@ void rotate_cw(char *filename) {
     }
     write_image_data("image_out.bmp", rotated_data, new_width, new_height);
 }
-
+void mirror_vertical(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    for (int y = 0; y < height / 2; y++) {
+        for (int x=0; x < width; x++) {
+            int index_source = (y * width + x) * 3;
+            unsigned char source_r = data[index_source];
+            unsigned char source_g = data[index_source+1];
+            unsigned char source_b = data[index_source+2];
+ 
+            int y_destination = height - 1 - y;
+            int index_destination = (y_destination * width + x) * 3;
+            unsigned char destination_r = data[index_destination];
+            unsigned char destination_g = data[index_destination+1];
+            unsigned char destination_b = data[index_destination+2];
+ 
+            data[index_destination] = source_r;
+            data[index_destination+1] = source_g;
+            data[index_destination+2] = source_b;
+ 
+            data[index_source] = destination_r;
+            data[index_source+1] = destination_g;
+            data[index_source+2] = destination_b;
+ 
+        }
+    }
+    write_image_data("image_out.bmp", data, width, height);
+}
 
 void mirror_total(char *filename) {
     unsigned char *data;
