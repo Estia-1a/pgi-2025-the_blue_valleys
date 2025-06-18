@@ -80,7 +80,7 @@ void max_pixel(char *source_path) {
     unsigned char *data;
     int width, height, channel_count;
     int i = 0;
-    int somme = 0, max = 0;
+    int somme = 0, max = -1;
     unsigned char r, g, b, r_max, g_max, b_max;
     int x_max, y_max;
     read_image_data(source_path, &data, &width, &height, &channel_count);
@@ -99,7 +99,7 @@ void max_pixel(char *source_path) {
             y_max = i / width;
         }
     }
-    printf("max pixel (%d,%d): %d, %d, %d", x_max, y_max, r_max, g_max, b_max);
+    printf("max_pixel (%d, %d): %d, %d, %d\n", x_max, y_max, r_max, g_max, b_max);
 }
 
 void min_pixel(char *source_path) {
@@ -285,6 +285,21 @@ void color_gray_luminance(char *filename) {
         data[i*3+0]=moy;
         data[i*3+1]=moy;
         data[i*3+2]=moy;
+    }
+    write_image_data("image_out.bmp", data, width, height);
+}
+
+void color_invert(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int i;
+    int nb_pixels=width*height;
+    for (i=0; i<nb_pixels ; i++) 
+    {
+        data[i*3+0]=255-data[i*3+0];
+        data[i*3+1]=255-data[i*3+1];
+        data[i*3+2]=255-data[i*3+2];
     }
     write_image_data("image_out.bmp", data, width, height);
 }
