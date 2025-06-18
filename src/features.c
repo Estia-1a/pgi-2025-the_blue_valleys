@@ -288,3 +288,4 @@ void color_gray_luminance(char *filename) {
     }
     write_image_data("image_out.bmp", data, width, height);
 }
+
