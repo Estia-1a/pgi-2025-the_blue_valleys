@@ -136,7 +136,7 @@ void max_component(char *source_path, char component) {
     unsigned char *data;
     int width, height, channel_count;
     int i = 0;
-    unsigned char comp, comp_max;
+    int comp, comp_max = -1;
     int x_max, y_max;
     read_image_data(source_path, &data, &width, &height, &channel_count);
     int nb_pixels = width * height;
@@ -168,7 +168,7 @@ void max_component(char *source_path, char component) {
             }
         }  
     }
-    printf("max component %c (%d, %d): %d", component, x_max, y_max, comp_max);
+    printf("max_component %c (%d, %d): %d\n", component, x_max, y_max, comp_max);
 }
 
 void color_red(char *filename) {
