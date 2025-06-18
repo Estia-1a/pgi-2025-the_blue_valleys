@@ -81,7 +81,7 @@ void max_pixel(char *source_path) {
     unsigned char *data;
     int width, height, channel_count;
     int i = 0;
-    int somme = 0, max = 0;
+    int somme = 0, max = -1;
     unsigned char r, g, b, r_max, g_max, b_max;
     int x_max, y_max;
     read_image_data(source_path, &data, &width, &height, &channel_count);
@@ -100,7 +100,7 @@ void max_pixel(char *source_path) {
             y_max = i / width;
         }
     }
-    printf("max pixel (%d,%d): %d, %d, %d", x_max, y_max, r_max, g_max, b_max);
+    printf("max_pixel (%d, %d): %d, %d, %d\n", x_max, y_max, r_max, g_max, b_max);
 }
 
 void min_pixel(char *source_path) {
@@ -108,8 +108,8 @@ void min_pixel(char *source_path) {
     int width, height, channel_count;
     int i = 0;
     int somme = 0, min = 255 * 3;
-    unsigned char r, g, b, r_min, g_min, b_min;
-    int x_min, y_min;
+    unsigned char r = 0, g = 0, b = 0, r_min = 0, g_min = 0 , b_min = 0;
+    int x_min = 0, y_min = 0;
     read_image_data(source_path, &data, &width, &height, &channel_count);
     int nb_pixels = width * height;
     for (i=0; i<nb_pixels; i++) {
@@ -137,7 +137,7 @@ void max_component(char *source_path, char component) {
     unsigned char *data;
     int width, height, channel_count;
     int i = 0;
-    unsigned char comp, comp_max;
+    int comp, comp_max = -1;
     int x_max, y_max;
     read_image_data(source_path, &data, &width, &height, &channel_count);
     int nb_pixels = width * height;
@@ -169,7 +169,7 @@ void max_component(char *source_path, char component) {
             }
         }  
     }
-    printf("max component %c (%d, %d): %d", component, x_max, y_max, comp_max);
+    printf("max_component %c (%d, %d): %d\n", component, x_max, y_max, comp_max);
 }
 
 void color_red(char *filename) {
@@ -221,7 +221,8 @@ void min_component(char *source_path, char component) {
     unsigned char *data;
     int width, height, channel_count;
     int i = 0;
-    unsigned char comp, comp_min=255;
+    unsigned char comp;
+    int comp_min=255*3+1;
     int x_min, y_min;
     read_image_data(source_path, &data, &width, &height, &channel_count);
     int nb_pixels = width * height;
@@ -310,4 +311,67 @@ void rotate_cw(char *filename) {
         }
     }
     write_image_data("image_out.bmp", rotated_data, new_width, new_height);
+}
+
+void color_invert(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int i;
+    int nb_pixels=width*height;
+    for (i=0; i<nb_pixels ; i++) 
+    {
+        data[i*3+0]=255-data[i*3+0];
+        data[i*3+1]=255-data[i*3+1];
+        data[i*3+2]=255-data[i*3+2];
+    }
+    write_image_data("image_out.bmp", data, width, height);
+}
+
+void color_desaturate(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int i, r, g, b;
+    int max, min;
+    int nb_pixels=width*height;
+    unsigned char new_val;
+    for (i=0; i<nb_pixels ; i++) 
+    {
+        r = data[i*3+0];
+        g = data[i*3+1];
+        b = data[i*3+2];
+        if (r > g && r > b){
+            max=r;
+            if (g > b){
+                min=b;
+            }
+            else {
+                min=g;
+            }
+        }
+        else if (g > r && g > b){
+            max=g;
+            if (r > b){
+                min=b;
+            }
+            else {
+                min=r;
+            }
+        }
+        else{
+            max=b;
+            if (r > g){
+                min=g;
+            }
+            else {
+                min=r;
+            }
+        }
+        new_val = (min + max) / 2 ;
+        data[i*3+0]=new_val;
+        data[i*3+1]=new_val;
+        data[i*3+2]=new_val;
+    }
+    write_image_data("image_out.bmp", data, width, height);
 }
