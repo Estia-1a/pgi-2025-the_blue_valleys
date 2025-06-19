@@ -476,7 +476,7 @@ void mirror_total(char *filename) {
     unsigned char *data;
     int width, height, channel_count;
     read_image_data(filename, &data, &width, &height, &channel_count);
-    mirror_vertical(*filename);
-    mirror_horizontal(*filename);
+    mirror_vertical(filename);
+    mirror_horizontal(filename);
     write_image_data("image_out.bmp", data, width, height);
 }
