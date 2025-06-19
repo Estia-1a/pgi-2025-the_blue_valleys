@@ -46,13 +46,6 @@ int main(int argc, char **argv) {
     second_line(configuration.filenames[0]);
   }
 
-  if (strncmp( configuration.command, "print_pixel", 11 ) == 0 ) 
-  {
-    int x = atoi(configuration.arguments[0]);
-    int y = atoi(configuration.arguments[1]);
-    print_pixel(configuration.filenames[0],x, y);
-  }
-
   if (strncmp( configuration.command, "max_pixel", 9 ) == 0 ) 
   {
     max_pixel(configuration.filenames[0]);
@@ -124,6 +117,14 @@ int main(int argc, char **argv) {
     rotate_acw(configuration.filenames[0]);
   }
 
+  if ( strncmp( configuration.command, "scale_crop", 10 ) == 0 ) 
+{
+    int center_x = atoi(argv[2]);
+    int center_y = atoi(argv[3]);
+    int crop_width = atoi(argv[4]);
+    int crop_height = atoi(argv[5]);
+    scale_crop(configuration.filenames[0], center_x, center_y, crop_width, crop_height);
+}
 
   return 0;
 }

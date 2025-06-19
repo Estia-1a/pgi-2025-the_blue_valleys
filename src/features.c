@@ -60,23 +60,6 @@ void second_line(char *source_path){
     printf("second_line: %d, %d, %d\n", r, g, b);
 }
 
-void print_pixel(char *filename, int x, int y){
-    unsigned char *data;
-    int width, height, channel_count;
-    read_image_data(filename, &data, &width, &height, &channel_count);
-    int pixel_index = (y*width+x)*channel_count;
-    unsigned char r = data[pixel_index];
-    unsigned char g = data[pixel_index+1];
-    unsigned char b = data[pixel_index+2];
-    if(data==NULL){
-        printf("NULL");
-    }
-    if(x < 0 || x >= width || y < 0 || y >= height) {
-        printf("NULL");
-    }
-    printf("print_pixel (%d, %d): %d, %d, %d\n", x, y, r, g, b);
-}
-
 void max_pixel(char *source_path) {
     unsigned char *data;
     int width, height, channel_count;
@@ -408,5 +391,34 @@ void rotate_cw(char *filename) {
         }
     }
     write_image_data("image_out.bmp", rotated_data, new_width, new_height);
+}
+
+void scale_crop(char *filename, int center_x, int center_y, int crop_width, int crop_height){
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    int new_w=crop_width;
+    int new_h=crop_height;
+    unsigned char *cropped_data=malloc(new_w*new_h*3);
+    int x, y;
+    for (y = 0; y < new_h; y++) {
+        for (x = 0; x < new_w; x++) {
+            int src_x = center_x - new_w/2 + x;
+            int src_y = center_y - new_h/2 + y;
+            int new_index = (y * new_w + x) * 3;
+            if (src_x < 0 || src_x >= width || src_y < 0 || src_y >= height) {
+                cropped_data[new_index + 0] = 0;
+                cropped_data[new_index + 1] = 0;
+                cropped_data[new_index + 2] = 0;
+            }
+            else {
+                int index = (src_y * width + src_x) * 3;
+                cropped_data[new_index + 0] = data[index + 0];
+                cropped_data[new_index + 1] = data[index + 1];
+                cropped_data[new_index + 2] = data[index + 2];
+            }
+        }
+    }
+    write_image_data("image_out.bmp",cropped_data,new_w, new_h);
 }
 
