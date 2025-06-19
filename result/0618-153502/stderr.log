@@ -1,0 +1,17 @@
+/home/runner/work/pgi-2025-the_blue_valleys/pgi-2025-the_blue_valleys/src/features.c: In function ‘mirror_total’:
+/home/runner/work/pgi-2025-the_blue_valleys/pgi-2025-the_blue_valleys/src/features.c:466:21: warning: passing argument 1 of ‘mirror_vertical’ makes pointer from integer without a cast [-Wint-conversion]
+  466 |     mirror_vertical(*filename);
+      |                     ^~~~~~~~~
+      |                     |
+      |                     char
+/home/runner/work/pgi-2025-the_blue_valleys/pgi-2025-the_blue_valleys/src/features.c:432:28: note: expected ‘char *’ but argument is of type ‘char’
+  432 | void mirror_vertical(char *filename) {
+      |                      ~~~~~~^~~~~~~~
+/home/runner/work/pgi-2025-the_blue_valleys/pgi-2025-the_blue_valleys/src/features.c:467:23: warning: passing argument 1 of ‘mirror_horizontal’ makes pointer from integer without a cast [-Wint-conversion]
+  467 |     mirror_horizontal(*filename);
+      |                       ^~~~~~~~~
+      |                       |
+      |                       char
+/home/runner/work/pgi-2025-the_blue_valleys/pgi-2025-the_blue_valleys/src/features.c:380:30: note: expected ‘char *’ but argument is of type ‘char’
+  380 | void mirror_horizontal(char *filename) {
+      |                        ~~~~~~^~~~~~~~
