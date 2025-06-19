@@ -42,4 +42,8 @@ void rotate_acw(char *filename);
 
 void scale_crop(char *filename, int center_x, int center_y, int crop_width, int crop_height);
 
+void mirror_vertical(char *filename);
+
+
+
 #endif

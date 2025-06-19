@@ -205,7 +205,7 @@ void min_component(char *source_path, char component) {
     int width, height, channel_count;
     int i = 0;
     unsigned char comp;
-    int comp_min=255*3+1;
+    int comp_min=256;
     int x_min, y_min;
     read_image_data(source_path, &data, &width, &height, &channel_count);
     int nb_pixels = width * height;
@@ -237,7 +237,7 @@ void min_component(char *source_path, char component) {
             }
         }  
     }
-    printf("min component %c (%d, %d): %d", component, x_min, y_min, comp_min);
+    printf("min_component %c (%d, %d): %d", component, x_min, y_min, comp_min);
 }
 
 void color_gray(char *filename) {
@@ -359,14 +359,34 @@ void color_desaturate(char *filename) {
     write_image_data("image_out.bmp", data, width, height);
 }
 
+
 void mirror_horizontal(char *filename) {
     unsigned char *data;
     int width, height, channel_count;
     read_image_data(filename, &data, &width, &height, &channel_count);
-    int i;
-    int nb_pixels=width*height;
-    for (i=0; i<nb_pixels/2 ; i++)
-    {
+
+    for (int y = 0; y < height; y++) {
+        for (int x=0; x < width/2; x++) {
+            int index_source = (y * width + x) * 3;
+            unsigned char source_r = data[index_source];
+            unsigned char source_g = data[index_source+1];
+            unsigned char source_b = data[index_source+2];
+
+            int x_destination = width - 1 - x;
+            int index_destination = (y * width + x_destination) * 3;
+            unsigned char destination_r = data[index_destination];
+            unsigned char destination_g = data[index_destination+1];
+            unsigned char destination_b = data[index_destination+2];
+
+            data[index_destination] = source_r;
+            data[index_destination+1] = source_g;
+            data[index_destination+2] = source_b;
+
+            data[index_source] = destination_r;
+            data[index_source+1] = destination_g;
+            data[index_source+2] = destination_b;
+
+        }
     }
     write_image_data("image_out.bmp", data, width, height);
 }
@@ -391,6 +411,35 @@ void rotate_cw(char *filename) {
         }
     }
     write_image_data("image_out.bmp", rotated_data, new_width, new_height);
+}
+void mirror_vertical(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    for (int y = 0; y < height / 2; y++) {
+        for (int x=0; x < width; x++) {
+            int index_source = (y * width + x) * 3;
+            unsigned char source_r = data[index_source];
+            unsigned char source_g = data[index_source+1];
+            unsigned char source_b = data[index_source+2];
+ 
+            int y_destination = height - 1 - y;
+            int index_destination = (y_destination * width + x) * 3;
+            unsigned char destination_r = data[index_destination];
+            unsigned char destination_g = data[index_destination+1];
+            unsigned char destination_b = data[index_destination+2];
+ 
+            data[index_destination] = source_r;
+            data[index_destination+1] = source_g;
+            data[index_destination+2] = source_b;
+ 
+            data[index_source] = destination_r;
+            data[index_source+1] = destination_g;
+            data[index_source+2] = destination_b;
+ 
+        }
+    }
+    write_image_data("image_out.bmp", data, width, height);
 }
 
 void scale_crop(char *filename, int center_x, int center_y, int crop_width, int crop_height){
@@ -422,3 +471,11 @@ void scale_crop(char *filename, int center_x, int center_y, int crop_width, int 
     write_image_data("image_out.bmp",cropped_data,new_w, new_h);
 }
 
+void mirror_total(char *filename) {
+    unsigned char *data;
+    int width, height, channel_count;
+    read_image_data(filename, &data, &width, &height, &channel_count);
+    mirror_vertical(*filename);
+    mirror_horizontal(*filename);
+    write_image_data("image_out.bmp", data, width, height);
+}

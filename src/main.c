@@ -126,5 +126,10 @@ int main(int argc, char **argv) {
     scale_crop(configuration.filenames[0], center_x, center_y, crop_width, crop_height);
 }
 
+  if (strncmp( configuration.command, "mirror_vertical", 17 ) == 0 ) 
+  {
+    mirror_vertical(configuration.filenames[0]);
+  }
+
   return 0;
 }
