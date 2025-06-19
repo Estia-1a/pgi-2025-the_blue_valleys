@@ -412,6 +412,7 @@ void rotate_cw(char *filename) {
     }
     write_image_data("image_out.bmp", rotated_data, new_width, new_height);
 }
+
 void mirror_vertical(char *filename) {
     unsigned char *data;
     int width, height, channel_count;
