@@ -12,8 +12,6 @@ void tenth_pixel (char *source_path);
 
 void second_line(char *source_path);
 
-void print_pixel (char *filename, int x, int y);
-
 void max_pixel(char *source_path);
 
 void max_component(char *source_path, char component);
@@ -42,6 +40,10 @@ void mirror_horizontal(char *filename);
 
 void rotate_acw(char *filename);
 
+void scale_crop(char *filename, int center_x, int center_y, int crop_width, int crop_height);
+
 void mirror_vertical(char *filename);
+
+
 
 #endif
